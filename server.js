@@ -15,12 +15,11 @@ config({ path: '.env' });
 // Parse JSON bodies
 app.use(express.json());
 
-// ✅ CORS setup with your actual deployed URL
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://ecommerce-backend-v62ihhq6p-aqeel2744s-projects.vercel.app"
+    "http://localhost:5173", // local dev frontend (Vite)
+    "https://ecommerce-backend-ookg5rp7t-aqeel2744s-projects.vercel.app",
+    "https://ecommerce-backend-chi-opal.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
@@ -28,14 +27,13 @@ app.use(cors({
 
 // Home route
 app.get('/', (req, res) => {
-  res.json({ message: "server is running on home" });
+  res.json({ message: "Server is running on home" });
 });
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URL, {
   dbName: "EcommerceWebsite"
-})
-  .then(() => console.log("MongoDB connected.."))
+}).then(() => console.log("MongoDB connected.."))
   .catch((err) => console.log(err.message));
 
 // Routes
